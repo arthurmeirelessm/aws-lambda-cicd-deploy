@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - pip install -r requirements.txt -t .
+  build:
+    commands:
+      - zip -r lambda_package.zip .
+  post_build:
+    commands:
+      - echo "Updating Lambda function..."
+      - aws lambda update-function-code --function-name ${var.lambda_function_name} --zip-file fileb://lambda_package.zip --region us-east-1
+
+artifacts:
+  files:
+    - lambda_package.zip
