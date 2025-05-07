@@ -3,17 +3,17 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11   
+      python: 3.11
     commands:
       - echo "Pulando instalação de dependências"
-  
+
   build:
     commands:
       - echo "Zipando src/ para lambda_package.zip"
       - cd src
       - zip -r ../lambda_package.zip .
       - cd ..
-  
+
   post_build:
     commands:
       - echo "Verificando existência de lambda_package.zip"
