@@ -17,7 +17,7 @@ phases:
     commands:
       - echo "Atualizando função Lambda..."
       - aws lambda update-function-code \
-          --function-name ${var.lambda_function_name} \
+          --function-name "$lambda_function_name" \
           --zip-file fileb://lambda_package.zip \
           --region us-east-1
 
