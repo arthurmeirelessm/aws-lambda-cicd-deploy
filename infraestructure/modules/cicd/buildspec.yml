@@ -12,14 +12,15 @@ phases:
       - echo "Zipando src/ para lambda_package.zip"
       - cd src
       - zip -r ../lambda_package.zip .
+      - cd ..
 
   post_build:
     commands:
       - echo "Atualizando função Lambda..."
-      - aws lambda update-function-code \
-          --function-name "$lambda_function_name" \
-          --zip-file fileb://lambda_package.zip \
-          --region us-east-1
+      - echo "Verificando existência de lambda_package.zip"
+      - ls -l lambda_package.zip
+      - aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://lambda_package.zip --region us-east-1
+
 
 artifacts:
   files:
