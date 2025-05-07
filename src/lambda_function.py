@@ -7,11 +7,13 @@ def lambda_handler(event, context):
         data = {
             "llm": {
                 "name": "haiku 35",
-                "input_tokens": 5000,
+                "input_tokens": 20000,
                 "output_tokens": 1000,
                 "number_of_requests": 1000000
             }
         }
+        
+        # Atualizei
 
         response = requests.post(url, json=data)
         try:

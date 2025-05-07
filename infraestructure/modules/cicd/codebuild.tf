@@ -17,8 +17,14 @@ environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "aws/codebuild/standard:2.0"
     type         = "LINUX_CONTAINER"
-  }
 
+
+
+    environment_variable {
+      name  = "lambda_function_name"
+      value = var.lambda_function_name
+    }
+  }
 
 
 
