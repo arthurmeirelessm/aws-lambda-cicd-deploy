@@ -16,7 +16,7 @@ environment {
 
 
     environment_variable {
-      name  = "lambda_function_name"
+      name  = "LAMBDA_FUNCTION_NAME"
       value = var.lambda_function_name
     }
   }
