@@ -3,16 +3,23 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.11   
     commands:
-      - pip install -r requirements.txt -t .
+      - echo "Pulando instalação de dependências"
+
   build:
     commands:
-      - zip -r lambda_package.zip .
+      - echo "Zipando src/ para lambda_package.zip"
+      - cd src
+      - zip -r ../lambda_package.zip .
+
   post_build:
     commands:
-      - echo "Updating Lambda function..."
-      - aws lambda update-function-code --function-name $lambda_function_name --zip-file fileb://lambda_package.zip --region us-east-1
+      - echo "Atualizando função Lambda..."
+      - aws lambda update-function-code \
+          --function-name ${var.lambda_function_name} \
+          --zip-file fileb://lambda_package.zip \
+          --region us-east-1
 
 artifacts:
   files:
