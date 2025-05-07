@@ -15,13 +15,9 @@ phases:
 
   post_build:
     commands:
-      - echo ">> LAMBDA_FUNCTION_NAME='$LAMBDA_FUNCTION_NAME'"
-      - set -x  
-      - aws lambda update-function-code \
-          --function-name "$LAMBDA_FUNCTION_NAME" \
-          --zip-file fileb://lambda_package.zip \
-          --region us-east-1
-
+      - |
+        echo "Atualizando função Lambda: $LAMBDA_FUNCTION_NAME"
+        aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://lambda_package.zip --region us-east-1
 
 artifacts:
   files:
