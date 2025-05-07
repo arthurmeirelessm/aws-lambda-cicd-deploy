@@ -7,17 +7,23 @@ phases:
     commands:
       - echo "Pulando instalação de dependências"
 
+  
   build:
-    commands:
-      - echo "Zipando src/ para lambda_package.zip"
-      - cd src
-      - zip -r ../lambda_package.zip .
+  commands:
+    - echo "Zipando src/ para lambda_package.zip"
+    - cd src
+    - zip -r ../lambda_package.zip .
+    - cd ..
+
+
 
   post_build:
-    commands:
-      - |
-        echo "Atualizando função Lambda: $LAMBDA_FUNCTION_NAME"
-        aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://lambda_package.zip --region us-east-1
+  commands:
+    - echo "Verificando existência de lambda_package.zip"
+    - ls -l lambda_package.zip
+    - echo "Atualizando função Lambda: $LAMBDA_FUNCTION_NAME"
+    - aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://lambda_package.zip --region us-east-1
+
 
 artifacts:
   files:
