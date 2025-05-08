@@ -33,7 +33,7 @@ module "cicd" {
   artifact_bucket         = "cicd-arctifact-test-arthur"
   repository_name         = "aws-lambda-cicd-deploy"
   branch_name             = "main"
-  codestar_connection_arn = "arn:aws:codeconnections:us-east-1:552516487395:connection/d19c0574-0023-4d2b-8ee3-37c1ef1d0b45"
+  codestar_connection_arn = "arn:aws:codeconnections:us-east-1:552516487395:connection/8a96bc9c-b145-48e3-a7ed-cff71f551f36"
   github_owner            = "arthurmeirelessm"
   github_oauth_token      = var.github_oauth_token
 }
