@@ -8,8 +8,8 @@ def lambda_handler(event, context):
             "llm": {
                 "name": "haiku 35",
                 "input_tokens": 80000,
-                "output_tokens": 1000,
-                "number_of_requests": 1000000
+                "output_tokens": 8000,
+                "number_of_requests": 10 
             }
         }
 
