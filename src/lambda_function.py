@@ -7,9 +7,9 @@ def lambda_handler(event, context):
         data = {
             "llm": {
                 "name": "haiku 35",
-                "input_tokens": 80000,
+                "input_tokens": 30000,
                 "output_tokens": 8000,
-                "number_of_requests": 10 
+                "number_of_requests": 220 
             }
         }
 

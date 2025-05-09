@@ -18,6 +18,11 @@ variable "source_path" {
   description = "Caminho até o diretório do código-fonte a ser zipado"
 }
 
+variable "local_build_path" {
+  type        = string
+  description = ""
+}
+
 variable "role_name" {
   type        = string
   description = "Nome da IAM Role que o Lambda irá assumir"

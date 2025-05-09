@@ -21,8 +21,25 @@ resource "aws_lambda_function" "this" {
   source_code_hash = data.archive_file.lambda_package.output_base64sha256
 }
 
+
 data "archive_file" "lambda_package" {
   type        = "zip"
-  source_dir  = var.source_path
+  source_dir = var.local_build_path
   output_path = "${path.module}/lambda.zip"
+}
+
+
+
+resource "aws_lambda_layer_version" "this_layer" {
+  layer_name          = var.layer_name    # ex: "minha-layer"
+  filename            = data.archive_file.layer_package.output_path
+  compatible_runtimes = [var.runtime]    # ex: ["python3.12"]
+  source_code_hash    = data.archive_file.layer_package.output_base64sha256
+}
+
+
+data "archive_file" "layer_package" {
+  type        = "zip"
+  source_dir  = var.local_build_path    
+  output_path = "${path.module}/layer.zip"
 }
