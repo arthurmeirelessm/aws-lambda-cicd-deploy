@@ -1,3 +1,4 @@
 infraestructure/.terraform/
+infraestructure/modules/*.zip
 local_build/
 src/venv/
