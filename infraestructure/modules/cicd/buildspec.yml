@@ -27,6 +27,7 @@ phases:
   post_build:
     commands:
       - set -e
+      - ls -lh
       - echo "==> Enviando ZIP da layer para o S3"
       - aws s3 cp python.zip s3://$LAYER_BUCKET/layers/python.zip --region $AWS_REGION
       - echo "==> Publicando nova versão da layer usando S3"
