@@ -15,31 +15,29 @@ provider "aws" {
 
 module "lambda_function" {
   source               = "./modules/app"
-  lambda_function_name = "cicdFunctionTest"
+  lambda_name          = "cicdFunctionTest"
   handler              = "lambda_function.lambda_handler"
   runtime              = "python3.11"
-  source_path          = "../src"
-  local_build_path        = "../local_build"
+  source_path          = "../src/lambda"
+  layer_name           = "cicdLayerLambda"
+  layer_initial_zip_path = "../src/venv/lib/python3.12/site-packages"
   role_name            = "cicdFunctionTestRole"
-}
-
-
-locals {
-  github_token_resolved = var.enable_cicd ? var.github_oauth_token : ""
+  layer_bucket            = "cicd-layer-repository"
 }
 
 
 module "cicd" {
-  count                   = var.enable_cicd ? 1 : 0  
   source                  = "./modules/cicd"
   lambda_name             = module.lambda_function.lambda_function_name
-  lambda_function_name    = module.lambda_function.lambda_function_name
   build_project_name      = "cicdBuildTest"
   pipeline_name           = "cicdPipelineTest"
   artifact_bucket         = "cicd-arctifact-test-arthur"
   repository_name         = "aws-lambda-cicd-deploy"
   branch_name             = "main"
-  codestar_connection_arn = "arn:aws:codeconnections:us-east-1:552516487395:connection/d19c0574-0023-4d2b-8ee3-37c1ef1d0b45"
+  codestar_connection_arn = "arn:aws:codeconnections:us-east-1:552516487395:connection/8a96bc9c-b145-48e3-a7ed-cff71f551f36"
   github_owner            = "arthurmeirelessm"
-  github_oauth_token      =  local.github_token_resolved 
+  github_oauth_token      =  var.github_oauth_token
+  layer_name              = "cicdLayerLambda"
+  aws_region              = "us-east-1"
+  layer_bucket            = "cicd-layer-repository"
 }

@@ -1,8 +1,3 @@
-variable "lambda_function_name" {
-  type        = string
-  description = "Nome que o Lambda vai receber"
-}
-
 variable "handler" {
   type        = string
   description = "Ponto de entrada da função, por ex.: arquivo.funcao"
@@ -18,7 +13,7 @@ variable "source_path" {
   description = "Caminho até o diretório do código-fonte a ser zipado"
 }
 
-variable "local_build_path" {
+variable "layer_initial_zip_path" {
   type        = string
   description = ""
 }
@@ -26,4 +21,17 @@ variable "local_build_path" {
 variable "role_name" {
   type        = string
   description = "Nome da IAM Role que o Lambda irá assumir"
+}
+
+variable "lambda_name" {
+  type = string
+}
+
+
+variable "layer_name" {
+  type = string
+}
+
+variable "layer_bucket" {
+  type = string
 }

@@ -15,12 +15,26 @@ environment {
 
 
 
-    environment_variable {
+   environment_variable {
       name  = "LAMBDA_FUNCTION_NAME"
-      value = var.lambda_function_name
+      value = var.lambda_name
+    }
+
+    environment_variable {
+      name  = "LAYER_NAME"
+      value = var.layer_name
+    }
+
+    environment_variable {
+      name  = "AWS_REGION"
+      value = var.aws_region
+    }
+
+    environment_variable {
+      name = "LAYER_BUCKET"
+      value = var.layer_bucket
     }
   }
-
 
 
 source {

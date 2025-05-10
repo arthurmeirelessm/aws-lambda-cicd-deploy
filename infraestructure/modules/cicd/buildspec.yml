@@ -3,25 +3,70 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11   
+      python: 3.11
     commands:
-      - echo "Pulando instalação de dependências"
+      - set -e
+      - echo "==> Limpando pastas anteriores"
+      - rm -rf lambda_package.zip python.zip layer python
 
   build:
     commands:
-      - echo "Zipando src/ para lambda_package.zip"
-      - cd src
+      - set -e
+      - echo "==> Instalando dependências para a layer"
+      - mkdir -p layer/python
+      - pip install -r src/lambda/requirements.txt -t layer/python
+
+      - echo "==> Empacotando a layer"
+      - cd layer
+      - zip -r ../python.zip python
+      - cd ..
+
+      - echo "==> Empacotando o código da Lambda"
+      - cd src/lambda
       - zip -r ../lambda_package.zip .
       - cd ..
 
   post_build:
     commands:
-      - echo "Atualizando função Lambda..."
-      - echo "Verificando existência de lambda_package.zip"
-      - ls -l lambda_package.zip
-      - aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://lambda_package.zip --region us-east-1
+      - set -e
+      - echo "==> Enviando ZIP da layer para o S3"
+      - >
+        aws s3 cp python.zip "s3://"$LAYER_BUCKET"/layers/python.zip" \
+        --region "$AWS_REGION"
 
+      - echo "==> Publicando nova versão da layer usando S3"
+      - >
+        LAYER_RESULT=$(aws lambda publish-layer-version \
+          --layer-name "$LAYER_NAME" \
+          --s3-bucket "$LAYER_BUCKET" \
+          --s3-key "layers/python.zip" \
+          --compatible-runtimes python3.11 \
+          --region "$AWS_REGION")
+
+      - echo "$LAYER_RESULT"
+
+      - >
+        LAYER_VERSION=$(echo "$LAYER_RESULT" | \
+          python3 -c "import sys, json; print(json.load(sys.stdin)['Version'])")
+
+      - LAYER_ARN="$LAYER_NAME":"$LAYER_VERSION"
+      - echo "ARN da layer ==> $LAYER_ARN"
+
+      - echo "==> Atualizando configuração da função Lambda para usar a nova layer"
+      - >
+        aws lambda update-function-configuration \
+          --function-name "$LAMBDA_FUNCTION_NAME" \
+          --layers "$LAYER_ARN" \
+          --region "$AWS_REGION"
+
+      - echo "==> Atualizando código da função Lambda"
+      - >
+        aws lambda update-function-code \
+          --function-name "$LAMBDA_FUNCTION_NAME" \
+          --zip-file fileb://lambda_package.zip \
+          --region "$AWS_REGION"
 
 artifacts:
   files:
     - lambda_package.zip
+    - python.zip
