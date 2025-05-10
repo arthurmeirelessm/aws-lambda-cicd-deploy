@@ -34,6 +34,16 @@ variable "lambda_name" {
   type = string
 }
 
-variable "lambda_function_name" {
+variable "layer_name" {
   type = string
 }
+
+variable "aws_region" {
+  type = string
+}
+
+variable "layer_bucket" {
+  type = string
+}
+
+
