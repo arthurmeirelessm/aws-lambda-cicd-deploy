@@ -8,11 +8,11 @@ VENV_DIR="./venv/lib/python3.12/"
 
 echo "[INFO] Copiando lambda_function.py para $LOCAL_BUILD_DIR/..."
 mkdir -p "$LOCAL_BUILD_DIR"
-cp lambda_function.py "$LOCAL_BUILD_DIR/"
+cp lambda/lambda_function.py "$LOCAL_BUILD_DIR/"
 
 # Gera o arquivo requirements.txt dentro de src/
 echo "[INFO] Gerando requirements.txt em src/..."
-pip freeze > "requirements.txt"
+pip freeze > "lambda/requirements.txt"
 
 echo "[INFO] Copiando pacotes da venv para $LOCAL_BUILD_DIR/..."
 

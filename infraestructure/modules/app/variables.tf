@@ -35,3 +35,8 @@ variable "layer_name" {
 variable "layer_bucket" {
   type = string
 }
+
+variable "local_source_path" {
+  type = string
+}
+
