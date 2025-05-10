@@ -40,4 +40,5 @@ module "cicd" {
   layer_name              = "cicdLayerLambda"
   aws_region              = "us-east-1"
   layer_bucket            = "cicd-layer-repository"
+  aws_account_id          = "552516487395"
 }

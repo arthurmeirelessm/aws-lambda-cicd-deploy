@@ -30,9 +30,10 @@ environment {
       value = var.aws_region
     }
 
+    
     environment_variable {
-      name = "LAYER_BUCKET"
-      value = var.layer_bucket
+      name = "AWS_ACCOUNT_ID"
+      value = var.aws_account_id
     }
   }
 
