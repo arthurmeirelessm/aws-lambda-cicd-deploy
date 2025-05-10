@@ -13,7 +13,7 @@ def lambda_handler(event, context):
             }
         }
         
-        print(f"Deploy test - 1")
+        print(f"Deploy test - 2")
 
         response = requests.post(url, json=data)
         try:
