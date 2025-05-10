@@ -1,5 +1,0 @@
-terraform {
-  backend "local" {
-    path = "./575751f2-11ed-4f2e-b6c1-b7571786a9e2.tfstate"
-  }
-}

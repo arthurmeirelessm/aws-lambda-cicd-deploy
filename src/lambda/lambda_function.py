@@ -6,12 +6,14 @@ def lambda_handler(event, context):
         url = "https://xb7p4evk8i.execute-api.us-east-1.amazonaws.com/dev/calculatebedrockllmcost"
         data = {
             "llm": {
-                "name": "haiku 35",
+                "name": "sonnet 3.5",
                 "input_tokens": 30000,
                 "output_tokens": 8000,
                 "number_of_requests": 220 
             }
         }
+        
+        print(f"Deploy test - 1")
 
         response = requests.post(url, json=data)
         try:
