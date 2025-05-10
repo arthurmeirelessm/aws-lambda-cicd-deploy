@@ -42,7 +42,7 @@ phases:
       - echo "==> Atualizando configuração da função Lambda para usar a nova layer"
       - aws lambda update-function-configuration --function-name $LAMBDA_FUNCTION_NAME --layers $LAYER_ARN --region $AWS_REGION
       - echo "==> Atualizando código da função Lambda"
-      - aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --zip-file fileb://lambda_package.zip --region $AWS_REGION
+      - n=0; until aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --zip-file fileb://lambda_package.zip --region $AWS_REGION || [ $n -ge 5 ]; do echo "Retrying update... ($n)"; n=$((n+1)); sleep 10; done; [ $n -lt 5 ] || { echo "Falha ao atualizar código da Lambda após múltiplas tentativas"; exit 1; }
 
 artifacts:
   files:
