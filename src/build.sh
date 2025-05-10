@@ -3,7 +3,7 @@ set -e
 
 # Definindo os diretórios relativos a partir de src/
 LOCAL_BUILD_DIR="../local_build"
-INFRASTRUCTURE_DIR="../infraestructure"
+INFRASTRUCTURE_DIR="../infrastructure"
 VENV_DIR="./venv/lib/python3.12/"
 
 echo "[INFO] Copiando lambda_function.py para $LOCAL_BUILD_DIR/..."

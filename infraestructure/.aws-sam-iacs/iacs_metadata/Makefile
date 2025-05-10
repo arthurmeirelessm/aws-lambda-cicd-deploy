@@ -1,2 +1,0 @@
-build-ModuleAppModuleLambdaFunctionAwsLambdaFunctionThis047E32EE2:
-	python3 ".aws-sam-iacs/iacs_metadata/copy_terraform_built_artifacts.py" --expression "|values|root_module|child_modules|[?address==module.app]|child_modules|[?address==module.app.module.lambda_function]|resources|[?address==\"module.app.module.lambda_function.null_resource.sam_metadata_aws_lambda_function[0]\"]|values|triggers|built_output_path" --directory "$(ARTIFACTS_DIR)" --target "module.app.module.lambda_function.null_resource.sam_metadata_aws_lambda_function[0]"
