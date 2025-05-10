@@ -32,6 +32,11 @@ environment {
 
     
     environment_variable {
+      name  = "LAYER_BUCKET"
+      value = var.layer_bucket
+    }
+    
+    environment_variable {
       name = "AWS_ACCOUNT_ID"
       value = var.aws_account_id
     }
