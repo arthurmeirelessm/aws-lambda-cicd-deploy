@@ -12,6 +12,8 @@ def lambda_handler(event, context):
                 "number_of_requests": 220 
             }
         }
+        
+        print(f"Deploy test - 1")
 
         response = requests.post(url, json=data)
         try:
