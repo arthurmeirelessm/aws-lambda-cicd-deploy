@@ -21,8 +21,9 @@ phases:
       - cd ..
       - echo "==> Empacotando o código da Lambda"
       - cd src/lambda
-      - zip -r ../lambda_package.zip .
-      - cd ..
+      - zip -r ../../lambda_package.zip .  # Compactando o código da Lambda diretamente na raiz
+      - cd ../..  # Volta para a raiz (dois níveis)
+
 
   post_build:
     commands:
