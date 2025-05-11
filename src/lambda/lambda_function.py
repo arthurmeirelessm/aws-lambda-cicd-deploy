@@ -9,11 +9,11 @@ def lambda_handler(event, context):
                 "name": "sonnet 3.5",
                 "input_tokens": 30000,
                 "output_tokens": 8000,
-                "number_of_requests": 220 
+                "number_of_requests": 220
             }
         }
         
-        print(f"Deploy test - 2")
+        print(f"Deploy test - 3")
 
         response = requests.post(url, json=data)
         try:
